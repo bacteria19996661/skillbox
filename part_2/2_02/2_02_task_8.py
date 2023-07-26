@@ -23,30 +23,20 @@
 
 
 def selection_sort(some_list: float):
-    n = len(some_list)
-
-    for elem in some_list:
-        min_elem = some_list[0]
-        if elem < min_elem:
-            min_elem = elem
-    print(f"Минимальный элемент: {min_elem}")
-
-    for i in range(n):
-        if some_list[i] > min_elem:
-            tenp_elem = some_list[i]
-            some_list[i] = min_elem
-
-
+    id_min = 0
+    for id_min in range(len(some_list)):
+        for id_curr in range(id_min, len(some_list)):
+            if some_list[id_curr] < some_list[id_min]:
+                some_list[id_curr], some_list[id_min] = some_list[id_min], some_list[id_curr]
 
     return some_list
 
 
-
 if __name__ == '__main__':
     # some_list = [9, 96.56, -37, 3, -27.39, 50, 1, 19.29, 15, 4, -5.3, 2, 0, -70.07, 48, 2, 37.72, 63, -3, -77.29, 86, 1, 26.33, 4, 7, 4.84, 12, 9, -66.73, -74]
-    some_list = [4, 8, 5, 6, 9, 0, 1, 3, 2, 7]
+    some_list = [4, 8, 5, 6, 9, 1, 3, 2, 7]
 
     result = selection_sort(some_list)
 
-    print(f"\nИсходный список:\n[4, 8, 5, 6, 9, 0, 1, 3, 2, 7]\n"
+    print(f"\nИсходный список:\n[4, 8, 5, 6, 9, 1, 3, 2, 7]\n"
           f"\nАлгоритм сортировки выбором:\n{result}")

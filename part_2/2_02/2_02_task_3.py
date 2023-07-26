@@ -28,7 +28,7 @@ def max_el_search(lst):
 
 
 v_cards_list = [3070, 2060, 3090, 3070, 3090]
-v_cards_list_c = v_cards_list.copy()
+v_cards_list_c = v_cards_list.copy() # v_cards_list[::] - копирование через срез
 
 for elem in v_cards_list:
     if elem == max_el_search(v_cards_list):
