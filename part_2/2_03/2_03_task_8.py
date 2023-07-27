@@ -1,4 +1,4 @@
-# Часть 2. Модуль 2. Практическая работа. Задание 8. Симметричная последовательность
+# Часть 2. Модуль 3. Практическая работа. Задание 8. Симметричная последовательность
 #
 # Последовательность чисел называется симметричной, если она одинаково читается как слева направо,
 # так и справа налево. Например, следующие последовательности являются симметричными:
@@ -58,23 +58,24 @@ def is_simm(some_list):
     else:
         return False
 
-def add_simm(some_list):
+
+def search_simm(some_list):
     if is_simm(some_list):
         print(f"Последовательность {some_list} уже является симметричной. Ничего не нужно добавлять.")
         exit()
 
-    n = len(some_list)
-    slice = some_list[:n-1]
-    temp_list = some_list + slice[::-1]
+    for i in range(len(some_list)):
+        if is_simm(some_list[i:]):
+            return i
 
-    for i in range(n, 2*n-1):
-        if is_simm(temp_list):
-            simm_list = temp_list[::]
-            del temp_list[i]
-        else:
-            break
 
-    return simm_list
+def add_simm(some_list):
+    i = search_simm(some_list)
+    slice_list: list = some_list[:i]
+    some_list.extend(reversed(slice_list))
+    return some_list
+
+
 
 if __name__ == '__main__':
 
@@ -82,13 +83,16 @@ if __name__ == '__main__':
         [1, 2, 1, 2, 2],
         [1, 2, 3, 4, 5],
         [1, 2, 3, 4, 3],
+        [1, 2, -3, 4, 0, 1],
+        [1, 2, -3, 4, 0, 0, 1, 1, 1],
+        [1, 2, 3, 4, 3, 2],
         [1, 2, 1]
     ]
 
     for some_list in test_cases:
+        print(f"Исходная     последовательность : {some_list}")
+        n = len(some_list)
         result = add_simm(some_list)
-
-        print(f"Исходная     последовательность : {some_list}\n"
-              f"Симметричная последовательность : {result}\n"
-              f"Нужно прописать чисел           : {len(result) - len(some_list)}\n"
-              f"Сами числа                      : {result[len(some_list):]}\n")
+        print(f"Симметричная последовательность : {some_list}\n"
+              f"Нужно прописать чисел           : {len(result) - n}\n"
+              f"Сами числа                      : {result[n:]}\n")
