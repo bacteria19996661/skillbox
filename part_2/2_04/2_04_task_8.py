@@ -23,44 +23,21 @@
 # Так индекс не будет равен длине списка или не превысит её, а значит не выйдет за пределы списка.
 # Например: (id_start + k - 1) % len(people_list)
 
-
-# Решение skillbox
-def skillbox_c_cipher(string, shift):
-    alpha = 'абвгдеёжзийклмнопрстуфхцчшщьыъэюя'
-
-    char_list = [(alpha[(alpha.index(sym) + shift) % 33] if sym != ' ' else ' ') for sym in string]
-    new_str = ''
-    for i_char in char_list:
-        new_str += i_char
-    return new_str
-
-# мое решение
 def c_cipher(message:str, offset:int):
     alpha = 'абвгдеёжзийклмнопрстуфхцчшщьыъэюя'
-    c_cipher_message = []
+    c_cipher_message = [(alpha[(alpha.index(i_mes) + offset) % len(alpha)] if i_mes in alpha else i_mes) for i_mes in message]
+    c_cipher_message_str = "".join(c_cipher_message)
 
-    for i_mes in message:
-        for i, i_al in enumerate(alpha):
-            if i_mes == i_al:
-                c_cipher_message.append(alpha[(i + offset) % len(alpha)])
-            elif i_mes == ' ':
-                if ' ' in c_cipher_message:
-                    pass
-                else:
-                    c_cipher_message.append(' ')
-
-    return c_cipher_message
-
+    return c_cipher_message_str
 
 
 if __name__ == '__main__':
     test_cases = [
         ('это питон', 3),
-        ('это питон', 6)
+        ('это питон', 56)
     ]
 
     for message, offset in test_cases:
         print(f"Сообщение: «{message}», сдвиг: {offset}")
-        result = skillbox_c_cipher(message, offset)
-        # result = "".join(c_cipher(message, offset))    # для моего решения
+        result = c_cipher(message, offset)
         print(f"Зашифрованное сообщение: «{result}»\n")
