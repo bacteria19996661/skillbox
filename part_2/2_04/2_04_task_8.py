@@ -23,6 +23,18 @@
 # Так индекс не будет равен длине списка или не превысит её, а значит не выйдет за пределы списка.
 # Например: (id_start + k - 1) % len(people_list)
 
+
+# Решение skillbox
+def skillbox_c_cipher(string, shift):
+    alpha = 'абвгдеёжзийклмнопрстуфхцчшщьыъэюя'
+
+    char_list = [(alpha[(alpha.index(sym) + shift) % 33] if sym != ' ' else ' ') for sym in string]
+    new_str = ''
+    for i_char in char_list:
+        new_str += i_char
+    return new_str
+
+# мое решение
 def c_cipher(message:str, offset:int):
     alpha = 'абвгдеёжзийклмнопрстуфхцчшщьыъэюя'
     c_cipher_message = []
@@ -39,6 +51,8 @@ def c_cipher(message:str, offset:int):
 
     return c_cipher_message
 
+
+
 if __name__ == '__main__':
     test_cases = [
         ('это питон', 3),
@@ -47,5 +61,6 @@ if __name__ == '__main__':
 
     for message, offset in test_cases:
         print(f"Сообщение: «{message}», сдвиг: {offset}")
-        result = "".join(c_cipher(message, offset))
+        result = skillbox_c_cipher(message, offset)
+        # result = "".join(c_cipher(message, offset))    # для моего решения
         print(f"Зашифрованное сообщение: «{result}»\n")
