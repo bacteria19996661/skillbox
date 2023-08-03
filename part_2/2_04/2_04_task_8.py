@@ -24,7 +24,8 @@
 # Например: (id_start + k - 1) % len(people_list)
 
 def c_cipher(message:str, offset:int):
-    alpha = 'абвгдеёжзийклмнопрстуфхцчшщьыъэюя'
+    alpha = [chr(i) for i in range(ord("а"), ord("я") + 1)]    # заполняем список буквами алфавита
+
     c_cipher_message = [(alpha[(alpha.index(i_mes) + offset) % len(alpha)] if i_mes in alpha else i_mes) for i_mes in message]
     c_cipher_message_str = "".join(c_cipher_message)
 
@@ -33,8 +34,8 @@ def c_cipher(message:str, offset:int):
 
 if __name__ == '__main__':
     test_cases = [
-        ('это питон', 3),
-        ('это питон', 56)
+        ('Это питон'.lower(), 3),
+        ('это Питон'.lower(), 56)
     ]
 
     for message, offset in test_cases:
