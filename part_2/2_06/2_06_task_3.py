@@ -83,22 +83,6 @@ for s_key, s_val in store.items():
         quantity_sum += i_store['quantity']
         price_sum += i_store['price'] * i_store['quantity']
 
-    # match end_1:
-    #     case (quantity_sum % 10 == 1):
-    #         end_1 = 'а'
-    #     case (quantity_sum % 10 == 2) or (quantity_sum % 10 == 3) or (quantity_sum % 10 == 4):
-    #         end_1 = 'и'
-    #     case _:
-    #         end_1 = ''
-    #
-    # match end_2:
-    #     case (price_sum % 10 == 1):
-    #         end_2 = 'ь'
-    #     case (price_sum % 10 == 2) or (price_sum % 10 == 3) or (price_sum % 10 == 4):
-    #         end_2 = 'я'
-    #     case _:
-    #         end_2 = 'ей'
-
     if quantity_sum % 10 == 1:
         end_1 = 'а'
     elif quantity_sum % 10 == 2 or quantity_sum % 10 == 3 or quantity_sum % 10 == 4:
@@ -114,8 +98,29 @@ for s_key, s_val in store.items():
         end_2 = 'ей'
 
     print("{prod} -- {quantity_sum} штук{end_1}, стоимость {price_sum:,d} рубл{end_2}.".format(
-        prod=prod, quantity_sum=quantity_sum, end_1=end_1, price_sum=price_sum, end_2=end_2))
+        prod=prod,
+        quantity_sum=quantity_sum,
+        end_1=end_1,
+        price_sum=price_sum,
+        end_2=end_2
+    ))
     num = 456767
 
     quantity_sum, price_sum = 0, 0
+
+
+# Решение skillbox
+#
+# for i_title, i_code in goods.items():
+#     total_quantity = 0
+#     total_cost = 0
+#     for i_good in store[i_code]:
+#         total_quantity += i_good['quantity']
+#         total_cost += i_good['price'] * i_good['quantity']
+#     print('{title} - {quantity} шт., стоимость {cost} руб.'.format(
+#         title=i_title,
+#         quantity=total_quantity,
+#         cost=total_cost
+#     ))
+#
 
