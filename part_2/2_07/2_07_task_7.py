@@ -32,10 +32,11 @@
 
 import random
 
-n = random.randint(1, 10)
-some_string = "".join([random.choice([chr(x) for x in range(97, 122)]) for _ in range(n)])
-some_tuple = tuple(random.randint(0, 100) for _ in range(n))
+some_string = "".join([random.choice([chr(x) for x in range(97, 122)]) for _ in range(random.randint(1, 10))])
+some_tuple = tuple(random.randint(0, 100) for _ in range(random.randint(1, 10)))
+# print(some_string, some_tuple)
 
+n = min(len(some_string), len(some_tuple))
 gen_tup = ((some_string[i], some_tuple[i]) for i in range(n))
 
 print(gen_tup)
