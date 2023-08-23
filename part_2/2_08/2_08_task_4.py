@@ -15,6 +15,12 @@
 # Весь функционал описан в отдельной функции.
 # Переменные и функции имеют значимые имена, не только a, b, c, d.
 
+
+def sum_args(*args):
+    summ = 0
+    for i_num in args:
+        summ += i_num
+    return summ
 def sum_in(structure):
     if isinstance(structure, tuple):
         structure = list(structure)
@@ -24,16 +30,22 @@ def sum_in(structure):
         return sum_in(structure[0]) + sum_in(structure[1:])
     return structure[0] + sum_in(structure[1:])
 
+def full_sum(structure, *args):
+    return sum_in(structure) + sum_args(*args)
+
 
 
 if __name__ == '__main__':
-    test_cases = [
+    test_sample = [
         [[1, 2, [3]], [1], 3],                         # Ответ в консоли: 10
         (1, 2, 3, 4, 5),                               # Ответ в консоли: 15
         [[1, 2, [3], (11, (12, 15, 16), 13)], [1], 3], # Ответ в консоли: 77
-        (1, (10, 20, [400, 500, 600], 30), 3, 4, 5)    # Ответ в консоли: 1573
+        (1, (10, 20, [400, 500, 600], 30), 3, 4, 5)   # Ответ в консоли: 1573
     ]
 
-    for sample in test_cases:
-        print(f"Сумма всех элементов конструкции {sample} = {sum_in(sample)}")
-        # print(f"Распакованная в список конструкция: {unpack(sample)}")
+    for sample in test_sample:
+        print(f"Сумма элементов конструкции {sample} = {sum_in(sample)}")
+    print(f"\nСумма аргументов = {sum_args(1, 2, 3, 4, 5)}\n")     # Ответ в консоли: 15
+
+    for sample in test_sample:
+        print(f"Общая сумма элементов конструкции с аргументами f({sample}, 1, 2, 3, 4, 5) = {full_sum(sample, 1, 2, 3, 4, 5)}")
