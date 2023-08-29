@@ -1,4 +1,4 @@
-# Модуль 13. Задача 3. Число наоборот 2
+# Часть 1. Модуль 13. Задача 3. Число наоборот 2
 #
 # Пользователь вводит два числа: N и K. Напишите программу,
 # которая заменяет каждое число на число, которое получается из исходного
@@ -19,13 +19,11 @@
 # Формат вывода соответствует примеру.
 # Вывод содержит описание результата (выведенные числа сопровождаются текстовым описанием).
 
-
 def flip_number_reverse_order(str_number: str) -> int:
     reverse_str_number = ''
     for i in range(1, len(str_number) + 1):
         reverse_str_number += str_number[-i]
     return int(reverse_str_number)
-
 
 
 if __name__ == '__main__':
@@ -41,4 +39,3 @@ if __name__ == '__main__':
 
     print(f"Сумма чисел, записанных наоборот: {sum_numbers}")
     print(f"Перевернутая сумма: {flip_number_reverse_order(str(sum_numbers))}")
-

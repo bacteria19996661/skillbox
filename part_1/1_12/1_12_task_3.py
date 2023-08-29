@@ -1,4 +1,4 @@
-# Модуль 12. Задача 3. Апгрейд калькулятора
+# Часть 1. Модуль 12. Задача 3. Апгрейд калькулятора
 #
 # Напишите программу, запрашивающую у пользователя число и действие,
 # которое нужно сделать с числом: вывести сумму его цифр, максимальную или минимальную цифру.
@@ -15,14 +15,11 @@
 # Советы и рекомендации
 # Не забывайте, что параметры функции и переменные снаружи могут иметь разные названия.
 
-
-
 def sum_digits(number):
     sum_digit = 0
     for digit in number:
         sum_digit += int(digit)
     print(f"Сумма цифр числа {number} равна {sum_digit}.")
-
 
 
 def max_digits(number):
@@ -32,7 +29,6 @@ def max_digits(number):
     return max(list_digits)
 
 
-
 def min_digits(number):
     list_digits = []
     for digit in number:
@@ -40,7 +36,6 @@ def min_digits(number):
     return min(list_digits)
 
 number = input('Введите число: ')
-
 
 
 def main_menu():
@@ -63,7 +58,6 @@ def main_menu():
     else:
         print('Ошибка ввода: введите 1, 2 или 3.')
     main_menu()
-
 
 
 main_menu()

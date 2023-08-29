@@ -1,4 +1,4 @@
-# Модуль 13. Задача 6. Яйца
+# Часть 1. Модуль 13. Задача 6. Яйца
 #
 # Уровень опасности для черепашьих яиц рассчитывается по формуле:
 # D = x^3 − 3x^2 − 12x + 10, где x — глубина кладки в метрах,
@@ -25,13 +25,9 @@
 # x2 = -(math.sqrt(3) + 1)
 # x3 = math.sqrt(3) - 1
 
-
-
 import math
 import matplotlib.pyplot as plt
 import numpy as np
-
-
 
 x1 = 5 # Первый корень уравнения нахожу графическим методом
 x2 = -(math.sqrt(3) + 1) # Остальные два корня уравнения нахожу по обобщенной теореме Виета
@@ -41,11 +37,9 @@ def is_normal(D: float) -> bool:
     return abs(D) > 1
 
 
-
 def f(x, D):
     y = x ** 3 - 3 * x ** 2 - 12 * x + (10 - D)
     return y
-
 
 
 def root_x3(D):
@@ -55,7 +49,6 @@ def root_x3(D):
     x3 = (D - 10) / (x1 * x2)
 
     return x3
-
 
 
 def graph() -> object:
@@ -73,7 +66,6 @@ def graph() -> object:
     # Вывод графика
     ax.plot(x, y)
     plt.show()
-
 
 
 if __name__ == '__main__':

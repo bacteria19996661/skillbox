@@ -1,4 +1,4 @@
-# Модуль 13. Задача 5. Маятник
+# Часть 1. Модуль 13. Задача 5. Маятник
 #
 # Известно, что амплитуда качающегося маятника с каждым разом затухает
 # на 8,4% от амплитуды предыдущего колебания.
@@ -17,8 +17,6 @@
 # Формат вывода соответствует примеру.
 # Вывод содержит описание результата (выведенные числа сопровождаются текстовым описанием).
 
-
-
 def input_err(initial_amplitude, amplitude_stop) -> bool:
     return (initial_amplitude <= 0 or amplitude_stop <= 0)
 
@@ -33,7 +31,6 @@ def pendulum(initial_amplitude, amplitude_stop):
         attenuation_rate = attenuation_rate - attenuation_rate * 8.4 / 100
         count += 1
     return count
-
 
 
 if __name__ == '__main__':
