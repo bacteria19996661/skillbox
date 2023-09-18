@@ -35,99 +35,130 @@
 # Переменные, функции и собственные методы классов имеют значащие имена, не a, b, c, d.
 
 class Water:
-    def __init__(self):
-        self.water = Water
+
+    def __str__(self):
+        return 'Вода'
 
     def __add__(self, other):
-        if other == air:
-            return Storm()
-        elif other == fire:
-            return Steam()
-        elif other == earth:
-            return Mud()
-        else:
-            print('Нет такой комбинации.')
 
-    def __radd__(self, other):
-        return self + other
+        if isinstance(other, Air):
+            return Storm
+
+        elif isinstance(other, Fire):
+            return Steam
+
+        elif isinstance(other, Earth):
+            return Mud
+
+        else:
+            return None
 
 
 class Air:
-    def __init__(self):
-        self.air = Air
+
+    def __str__(self):
+        return 'Воздух'
 
     def __add__(self, other):
-        if other == fire:
-            return Lightning()
-        elif other == earth:
-            return Dust()
-        elif other == water:
-            return Storm()
-        else:
-            print('Нет такой комбинации.')
 
-    def __radd__(self, other):
-        return self + other
+        if isinstance(other, Water):
+            return Storm
+
+        elif isinstance(other, Fire):
+            return Lightning
+
+        elif isinstance(other, Earth):
+            return Dust
+
+        else:
+            return None
 
 
 class Fire:
-    def __init__(self):
-        self.fire = Fire
+
+    def __str__(self):
+        return 'Огонь'
 
     def __add__(self, other):
-        if other == air:
-            return Lightning()
-        elif other == earth:
-            return Lava()
-        elif other == water:
-            return Steam()
-        else:
-            print('Нет такой комбинации.')
 
-    def __radd__(self, other):
-        return self + other
+        if isinstance(other, Air):
+            return Lightning
+
+        elif isinstance(other, Earth):
+            return Lava
+
+        elif isinstance(other, Water):
+            return Steam
+
+        else:
+            return None
 
 
 class Earth:
-    def __init__(self):
-        self.earth = Earth
+
+    def __str__(self):
+        return 'Земля'
 
     def __add__(self, other):
-        if other == air:
-            return Dust()
-        elif other == fire:
-            return Lava()
-        elif other == water:
-            return Mud()
-        else:
-            print('Нет такой комбинации.')
+        if isinstance(other, Air):
+            return Dust
 
-    def __radd__(self, other):
-        return self + other
+        elif isinstance(other, Fire):
+            return Lava
+
+        elif isinstance(other, Water):
+            return Mud
+
+        else:
+            return None
 
 
 class Storm:
-    answer = 'Вода + Воздух = Шторм'
+    def __str__(self):
+        return 'Шторм'
+
+    def __call__(self, x, y):
+        return x + y
 
 
 class Steam:
-    answer = 'Вода + Огонь = Пар'
+    def __str__(self):
+        return 'Пар'
+
+    def __call__(self, x, y):
+        return x + y
 
 
 class Mud:
-    answer = 'Вода + Земля = Грязь'
+    def __str__(self):
+        return 'Грязь'
+
+    def __call__(self, x, y):
+        return x + y
 
 
 class Lightning:
-    answer = 'Воздух + Огонь = Молния'
+    def __str__(self):
+        return 'Молния'
+
+    def __call__(self, x, y):
+        return x + y
 
 
 class Dust:
-    answer = 'Воздух + Земля = Пыль'
+    def __str__(self):
+        return 'Пыль'
+
+    def __call__(self, x, y):
+        return x + y
 
 
 class Lava:
-    answer = 'Огонь + Земля = Лава'
+    def __str__(self):
+        return 'Лава'
+
+    def __call__(self, x, y):
+        return x + y
 
 
 water = Water()
@@ -135,26 +166,20 @@ air = Air()
 fire = Fire()
 earth = Earth()
 
-# Вода + Воздух = Шторм
-result_1 = water + air
-print(result_1.answer)
+# print(water)
 
-# Вода + Огонь = Пар
-result_2 = water + fire
-print(result_2.answer)
+storm = Storm()
+steam = Steam()
+mud = Mud()
+lightning = Lightning()
+dust = Dust()
+lava = Lava()
 
-# Вода + Земля = Грязь
-result_3 = water + earth
-print(result_3.answer)
+storm.__call__(water, air)
+steam.__call__(water, fire)
+mud.__call__(water, earth)
+lightning.__call__(air, fire)
+dust.__call__(air, earth)
+lava.__call__(fire, earth)
 
-# Воздух + Огонь = Молния
-result_4 = air + fire
-print(result_4.answer)
-
-# Воздух + Земля = Пыль
-result_5 = air + earth
-print(result_5.answer)
-
-# Огонь + Земля = Лава
-result_6 = fire + earth
-print(result_6.answer)
+print(storm, steam, mud, lightning, dust, lava)
