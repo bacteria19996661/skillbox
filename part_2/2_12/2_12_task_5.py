@@ -38,125 +38,60 @@
 # Переменные, функции и собственные методы классов имеют значащие имена, а не a, b, c, d.
 # Классы и методы/функции имеют прописанную документацию.
 
-
 class Stack:
-    """
-    Реаизует добавление и удаление элемента.
-    """
     def __init__(self):
-        self.__list = []
+        self.__st = []
 
     def __str__(self):
-        return str(", ".join(self.__list))
+        return '; '.join(self.__st)
+        # return str(self.__st)
 
-    def get_list(self):
-        return self.__list
-
-    def add(self, some_task):
-        return self.__list.append(some_task)
+    def push(self, elem):
+        return self.__st.append(elem)
 
     def pop(self):
-        if len(self.__list) == 0:
+        if len(self.__st) == 0:
             return None
-        return self.__list.pop()
+        return self.__st.pop()
 
 
 class TaskManager:
-    """
-    Класс «Менеджер задач» на основе стека (не наследование),
-    где можно выполнить команду «новая задача»,
-    в которую передаётся сама задача (str) и её приоритет (int).
-    При выводе менеджера в консоль задачи отсортированы по возрастанию.
-
-    Дополнительно: удаление задач и обработка дубликатов.
-    """
     def __init__(self):
-        self.task = {}
+        self.task = dict()
 
     def __str__(self):
-        all_task = ""
-        for i_task in sorted(self.task.keys()):    # сортировка по приоритету
-            all_task += str(i_task) + " " + str(self.task[i_task]) + "\n"
-        return all_task
+        display = []
+        if self.task:
+            for i_priority in sorted(self.task.keys()):
+                display.append('{priority} {task}\n'.format( priority=str(i_priority), task = self.task[i_priority]))
+        return ''.join(display)
 
     def new_task(self, task, priority):
-        if not priority in self.task.keys():     # если задачи с таким приоритетом в ключах нет
-            self.task[priority] = Stack()     # значение соваря определяется как экземпляр класса Stack
-            self.task[priority].add(task)     # то задача добавляется в стек (список)
-        else:    # если задача с таким приоритетом есть в ключах
-            duble_stack = Stack()    # задаем новый экземпляр касса Stack для перечисления значений дубликатов приоритета
-            while len(str(self.task[priority])) != 0:    # пока задачи (значения) не закончились
-                value = self.task[priority].pop()    # удаляем их из обычного стека (списка) с записью возвращаемого значения
-                if value != task:     # для дубюрующихся приоритетов (если удаляемая задача не совпадает с проверяемым,
-                    duble_stack.add(value)    # то добавяем значение в специальный стек для дублей
+        if priority not in self.task:  # если такого ключа в словаре нет,
+            self.task[priority] = Stack()  # создаем пару ключ - Stack
+            # т.к. значением ключа является стек, то для добавления в него элемента нужно вызвать метод push
+        self.task[priority].push(task)
 
-            duble_stack.add(task)     # добавляем задачу с дублируемым приоритетом в специаьный стек для дубей список)
-            print(f"new_stack = {duble_stack}")
-            self.task[priority] = duble_stack    # добавяем значения дублей приоритета в словарь
-            print(f"task = {task}")
-
-    def delete_task(self, priority):
-        if not priority in self.task.keys():    # если задачи с таким приоритетом в ключах нет
-            print("Задачи с таким приоритетом нет!")
-        else:
-            print(f"Удалили задачу '{self.task[priority].pop()}'")
-            if len(str(self.task[priority])) == 0:    # если задача удалена
-                self.task.pop(priority)    # удаляем также её приоритет
-
-
-# def menu():
-#     manager = TaskManager()
-#
-#     usr_choice_command = input('Выберите действие:\n'
-#                                'add - добавить задачу\n'
-#                                'del - удалить задачу:\n'
-#                                'exit - завершить работу:\n'
-#                                'Ваш выбор: ')
-#
-#     if usr_choice_command == 'add':
-#         flag = '1'
-#         while flag == '1':
-#             usr_task = input('Введите задачу: ')
-#             usr_priority = int(input('Задайте приоритет: '))
-#             manager.new_task(usr_task, usr_priority)
-#
-#             flag = input('Добавить еще задачу? 1 - да, 0 - нет. Ваш выбор: ')
-#             if flag == '0':
-#                 print(manager)
-#                 manager.delete_task(1)
-#                 manager.delete_task(4)
-#                 print(manager)
-#                 break
-#
-#     if usr_choice_command == 'del':
-#         flag = '1'
-#         while flag == '1':
-#             usr_number = int(input('Введите номер задачи, которую нужно удалить: '))
-#             manager.delete_task(usr_number)
-#             print(manager)
-#
-#             flag = input('Добавить еще задачу? 1 - да, 0 - нет. Ваш выбор: ')
-#             if flag == '0':
-#                 print(manager)
-#                 break
-#
-#     if usr_choice_command == 'exit':
-#         exit()
-#     else:
-#         menu()
 
 if __name__ == '__main__':
+
+    # my_st = Stack()
+    # for i in range(5):
+    #     my_st.push(i)
+    # print(my_st)
+    # for _ in range(3):
+    #     my_st.pop()
+    # print(my_st)
+
     manager = TaskManager()
     manager.new_task("сделать уборку", 4)
     manager.new_task("помыть посуду", 4)
     manager.new_task("отдохнуть", 1)
     manager.new_task("поесть", 2)
-    manager.new_task("сдать дз", 2)
+    manager.new_task("сдать ДЗ", 2)
     print(manager)
-    manager.new_task("сделать уборку", 4)
-    manager.new_task("помыть посуду", 3)
-    manager.new_task("сделать уборку", 4)
-    print(manager)
-    manager.delete_task(1)
-    manager.delete_task(4)
-    print(manager)
+
+    # Результат:
+    # 1 — отдохнуть
+    # 2 — поесть; сдать ДЗ
+    # 4 — сделать уборку; помыть посуду
