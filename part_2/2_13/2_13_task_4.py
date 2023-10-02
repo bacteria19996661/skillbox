@@ -52,137 +52,105 @@
 # Есть аннотация типов для методов/функций и их аргументов (кроме args и kwargs).
 # Если функция/метод ничего не возвращает, то используется None.
 
-class Node:    # логика работы одного узла
-    def __init__(self, data=None, link=None):
-        self.data = data    # Значение узла
-        self.link = link    # Ссылка на следующий узел
-
-    def get_data(self):
-        return self.data
-
-    def set_data(self, data):
-        self.data = data
-
-    def get_link(self):
-        return self.link
-
-    def set_link(self, link):
-        self.link = link
-
-    def __str__(self):
-        return '{}'.format(self.data)
+from typing import Any, Optional    # два специаьных класса для аннотации типов
 
 
-class LinkedList:
+class Node:    # УЗЕЛ
+    def __init__(self, value: Optional[Any] = None, next: Optional['Node'] = None) -> None:
+        self.value = value    # значение
+        self.next = next    # ссылка на следующий узел
 
-    def __init__(self, head=None):
-        self.head = head
+    def __str__(self) -> str:
+        return 'Node [{value}]'.format(value=str(self.value))
 
-    def append_begin(self, data):
-        node = Node(data, self.head)
-        self.head = node
-        # print('В начало списка добавлен новый элемент {}.'.format(self.head))
+class LinkedList:    # СПИСОК узлов
+    def __init__(self) -> None:
+        self.head: Optional[Node] = None    # указатель на самый первый головной элемент (узел списка или None)
+        self.length = 0    # инициализируем счетчик длины для метода удаления элемента
 
-    def append_end(self, data):
-        new_node = Node(data)
-        # print('Добавлен новый элемент в конец списка: {}.'.format(new_node))
-        if self.head is None:
-            self.head = new_node
-            return
+    def __str__(self) -> str:    # переопределим вывод
+        if self.head is not None:
+            current = self.head
+            values = [str(current.value)]
+            while current.next is not None:
+                current = current.next
+                values.append(str(current.value))
+            return '[{values}]'.format(values=' '.join(values))
+        return 'LinkedList []'
 
-        current_node = self.head
-        while current_node.get_link():
-            current_node = current_node.get_link()
+    def append(self, elem: Any) -> None:    # Добавение элемента (Any - любого) в конец списка
+        new_node = Node(elem)    # создаем узел, который будет содержать передаваемые методом append данные
+        if self.head is None:    # если список пустой,
+            self.head = new_node    # то атрибут head будет указывать на этот же узел
+            return    # выходим
 
-        current_node.link = new_node
+        # если в списке уже есть узлы, то нужно пройтись по всем узлам до последненго и связать его с новым
+        last = self.head    # поместили указатель на первый элемент в переменную last
+        while last.next:    # если атрибут next не равен None, то у него есть следующий сосед
+            last = last.next    # его и берем
+        last.next = new_node    # последним узлом сделаем соседа
+        self.length += 1    # увеличиваем счетчик длины для метода удаления элемента
 
-    def get(self, value):    # получение элемента
-        current_node = self.head
-        while current_node:
-            if current_node.get_data() == value:
-                print('Элемент {} найден.'.format(current_node.get_data()))
-                return current_node.get_data()
-            else:
-                current_node = current_node.get_link()
-        print('Элемент {} не найден.'.format(value))
-        return None
+    def get(self, index) -> None:
+        cur_node = self.head
+        cur_index = 0
+        # if self.length == 0 or self.length <= index:
+        #     raise IndexError
 
-    def get_by_index(self, index):
-        current_node = self.head
-        position = 0
-        if position == index:
-            print('{} (id = {})'.format(current_node.get_data(), index))
-            return current_node.get_data()
-        else:
-            while (current_node != None and position != index):
-                position += 1
-                current_node = current_node.get_link()
-            if current_node != None:
-                print('{} (id = {})'.format(current_node.get_data(), index))
-                return current_node.get_data()
-            else:
-                print("Такого индекса нет")
+        if cur_node is not None:  # Если текущий указатель не пустой, то
+            if index == 0:  # Если ищем первый элемент, то
+                print(self.head)
+                return self.head
 
-    def remove(self, value):    # удаление элемента по значению
-        prev = None    # предыдущий
-        current_node = self.head    # текущий
-        while current_node:
-            if current_node.get_data() == value:    # если значение совпадает с текущим, то
-                if prev:    # если предыдущий
-                    prev.set_link(current_node.get_link())
-                else:
-                    self.head = current_node.get_link()
-                print('Элемент {} удален.'.format(current_node.get_data()))
-                return current_node.get_data()
+        while cur_node is not None:    # то проходим циклом по всем узлам,
+            if cur_index == index:    # и сравниваем текущий индекс с переданным
+                break    # если нашли его, выходим
+            # внутри цикла идем по списку,
+            prev = cur_node    # запоминаем предыдущий узел
+            cur_node = cur_node.next    # и переходим к следующему узлу, до тех пор пока не выполнится условие цикла
+            cur_index += 1
+        # когда нашли узел с нужным значением,
+        print(cur_node)
+        return cur_node
 
-            prev = current_node
-            current_node = current_node.get_link()
+    def remove(self, index) -> None:
+        cur_node = self.head    # создадим переменную для указателя, чтобы случайно не поменять первый элемент head
+        cur_index = 0    # создадим переменную для текущего индекса
+        if self.length == 0 or self.length <= index:    # Проверим, не выходит ли индекс за границы списка
+            raise IndexError    # для этого при добавлении элемента нужно считать длину (инициализируем её в списке)
 
-        return False
+        if cur_node is not None:  # Если текущий указатель не пустой, то
+            if index == 0:    # Если удаляем первый элемент, то
+                self.head = cur_node.next    # достаточно заменить его ссылку на ссылку следующего элемента (узла)?
+                self.length -= 1    # уменьшить длину
+                return    # и выйти из метода
+        # если удаляется не первый элемент,
+        while cur_node is not None:    # то проходим циклом по всем узлам,
+            if cur_index == index:    # и сравниваем текущий индекс с переданным
+                break    # если нашли его, выходим
+            # внутри цикла идем по списку,
+            prev = cur_node    # запоминаем предыдущий узел
+            cur_node = cur_node.next    # и переходим к следующему узлу, до тех пор пока не выполнится условие цикла
+            cur_index += 1
+        # когда нашли узел с нужным значением,
+        print(cur_node)
+        prev.next = cur_node.next    # заменяем ссылку на следующий узел
+        self.length -= 1    # и уменьшаем длину
+        # Это полноценное удаление, т.к. в памяти узел не остается, ведь на него никто не ссылается,
+            # сборщик мусора автоматически удалит его из памяти
 
-    def remove_first_node(self):
-        if self.head == None:
-            return None
-        self.head = self.head.get_link()
-
-    def remove_by_index(self, index):
-        if self.head == None:
-            return None
-
-        current_node = self.head
-        position = 0
-        if position == index:
-            self.remove_first_node()
-        else:
-            while (current_node != None and position + 1 != index):
-                position += 1
-                current_node = current_node.get_link()
-
-            if current_node != None:
-                print('{} (id = {})'.format(current_node.link, index))
-                current_node.link = current_node.link.get_link()
-
-            else:
-                print("Нет такого индекса!")
-
-    def print_data(self):
-        current_node = self.head
-        while current_node:
-            print(current_node.data, end=' ')
-            current_node = current_node.get_link()
-        print()
 
 
 if __name__ == '__main__':
     my_list = LinkedList()
-    my_list.append_end(10)
-    my_list.append_end(20)
-    my_list.append_end(30)
-    print('Текущий список:', end=' ')
-    my_list.print_data()
-    print('Получение элемента:', end=' ')
-    my_list.get_by_index(2)
-    print('Удаление элемента:', end=' ')
-    my_list.remove_by_index(1)
-    print('Новый список:', end=' ')
-    my_list.print_data()
+    my_list.append(10)
+    my_list.append(20)    # тут запустить дебаг
+    my_list.append(30)
+    print('Текущий список:')
+    print(my_list)
+    print('Получение элемента:')
+    my_list.get(2)
+    print('Удаление элемента:')
+    my_list.remove(1)
+    print('Новый список:')
+    print(my_list)
