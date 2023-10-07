@@ -1,0 +1,32 @@
+
+05.10.2023 20:44:57 - generate_number - Вызвано исключение!
+05.10.2023 20:44:59 - generate_number - Вызвано исключение!
+05.10.2023 20:45:02 - generate_number - Вызвано исключение!
+05.10.2023 20:45:03 - generate_number - Вызвано исключение!
+05.10.2023 20:45:04 - generate_number - Вызвано исключение!
+05.10.2023 20:45:04 - generate_number - Вызвано исключение!
+05.10.2023 20:45:07 - generate_number - division by zero
+05.10.2023 20:45:08 - generate_number - Вызвано исключение!
+05.10.2023 20:45:09 - generate_number - division by zero
+05.10.2023 20:46:56 - generate_number - Вызвано исключение!
+05.10.2023 20:47:01 - generate_number - Вызвано исключение!
+05.10.2023 20:47:07 - generate_number - division by zero
+05.10.2023 20:47:08 - generate_number - division by zero
+05.10.2023 20:47:09 - generate_number - division by zero
+05.10.2023 20:47:10 - generate_number - Вызвано исключение!
+05.10.2023 20:47:11 - generate_number - division by zero
+05.10.2023 20:47:12 - generate_number - division by zero
+05.10.2023 20:47:13 - generate_number - Вызвано исключение!
+05.10.2023 20:47:14 - generate_number - Вызвано исключение!
+05.10.2023 20:47:27 - generate_number - division by zero
+05.10.2023 21:01:53 - generate_number - generate_number() missing 1 required positional argument: 'number'
+05.10.2023 21:02:17 - generate_number - Вызвано исключение!
+05.10.2023 21:02:43 - generate_number - Вызвано исключение!
+05.10.2023 21:02:46 - generate_number - Вызвано исключение!
+05.10.2023 21:09:42 - generate_number - Вызвано исключение!
+06.10.2023 16:40:24 - generate_number - division by zero
+06.10.2023 16:40:33 - generate_number - Вызвано исключение!
+06.10.2023 16:40:44 - generate_number - division by zero
+06.10.2023 16:40:45 - generate_number - Вызвано исключение!
+06.10.2023 16:40:46 - generate_number - Вызвано исключение!
+06.10.2023 16:48:13 - generate_number - division by zero
