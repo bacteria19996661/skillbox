@@ -29,15 +29,17 @@
 
 from collections import Counter
 
-
-def can_be_poly(some_string: str) -> bool:
-    cnt = Counter(some_string)
-    return sum(1 for var in cnt.values() if var % 2 != 0) < 2
+def can_be_poly(some_string: str) -> bool:    # Решение Skillbox
+    return len(list(filter(lambda x: x % 2, Counter(some_string).values()))) <= 2
 
 
 print(can_be_poly('abcba'))
 print(can_be_poly('abbbc'))
 
+# Моё решение
+# def can_be_poly(some_string: str) -> bool:
+#     cnt = Counter(some_string)
+#     return sum(1 for var in cnt.values() if var % 2 != 0) < 2
 
 # Мой неоптимизированный код:
 # def can_be_poly(some_string: str) -> bool:
